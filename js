@@ -18,8 +18,6 @@ reproduction.
 
 const Grid = document.getElementById('grid');
 
-const Cells = Array.prototype.slice.call(grid.querySelectorAll('td'));
-
 const Offsets = [
   [-1, -1], [ 0, -1], [+1, -1],
   [-1,  0], /* me! */ [+1,  0],
@@ -30,22 +28,42 @@ const _ = null;
 const I = 'i';
 const O = 'o';
 
-function render(state) {
-  Cells.forEach((cell, i) => {
-    cell.innerHTML = state[i];
+function build(grid, size) {
+  let cells = [];
+  let [width, height] = size;
+  for (let y = 0; y < height; y++) {
+    let row = document.createElement('tr');
+    grid.appendChild(row);
+    for (let x = 0; x < height; x++) {
+      let cell = document.createElement('td');
+      row.appendChild(cell);
+      cells.push(cell);
+    }
+  }
+  return cells;
+}
+
+function render(state, cells) {
+  state.forEach((v, i) => {
+    if (v) {
+      cells[i].style = 'background: #777;'
+    } else {
+      cells[i].style = '';
+    }
   });
 }
 
-function tick(state0) {
-  let state1 = Cells.map(() => null);
+function tick(state0, size) {
+  let [width, height] = size;
+  let state1 = state0.map(() => null);
 
-  for (let i = 0; i < 256; i++) {
-    let x = i % 16, y = Math.floor(i / 16);
+  for (let i = 0; i < width * height; i++) {
+    let x = i % width, y = Math.floor(i / width);
 
     let n = {};
     Offsets.forEach(pair => {
       let [dx, dy] = pair;
-      let j = (x + dx) + (y + dy) * 16;
+      let j = (x + dx) + (y + dy) * width;
       let s = state0[j] || null;
       n[s] = (n[s] || 0) + 1;
     });
@@ -66,20 +84,25 @@ function tick(state0) {
   return state1;
 }
 
-function random(density) {
-  let state = Cells.map(() => null);
-  for (let i = 0; i < 256; i++) {
-    if (Math.random() <= density) {
-      state[i] = I;
+function random(state0, density) {
+  let state1 = state0.map(v => {
+    if (v) {
+      return v;
+    } else if (Math.random() <= density) {
+      return I;
     }
-  }
-  return state;
+  });
+  return state1;
 }
 
 
-let state = random(0.5);
+let size = [40, 40];
+let cells = build(grid, size); 
+let state = cells.map(() => null);
+state = random(state, 0.5);
+render(state, cells);
 
 window.setInterval(() => {
-  render(state);
-  state = tick(state);
+  render(state, cells);
+  state = tick(state, size);
 }, 1000/24)
