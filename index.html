@@ -10,19 +10,32 @@
 body {
   background: #111;
   color: #ddd;
+  margin: 0;
 }
 
 table {
-  width: 90vw;
-  height: 90vh;
+  width: 100vw;
+  height: 100vh;
+  border-collapse: collapse;
+  font-family: monospace;
 }
 
 td {
+  border: 1px solid #333;
+  width: 3vw;
+  height: 3vh;
   text-align: center;
   font-size: 200%;
   font-weight: bold;
   overflow: hidden;
 }
+
+td.i { background: #411; }
+td.o { background: #114; }
+
+td.i:before { content: 'i'; }
+td.o:before { content: 'o'; }
+
 
 </style>
 
