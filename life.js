@@ -155,4 +155,4 @@ function tick() {
 }
 
 
-window.setInterval(tick, 1000/24);
+window.setInterval(tick, 1000/12);
