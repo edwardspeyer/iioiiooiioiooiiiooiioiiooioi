@@ -51,6 +51,7 @@ function render(state, cells) {
       cells[i].style = '';
     }
   });
+  return state;
 }
 
 function tick(state0, size) {
@@ -96,13 +97,10 @@ function random(state0, density) {
 }
 
 
-let size = [40, 40];
+let size = [60, 60];
 let cells = build(grid, size); 
 let state = cells.map(() => null);
 state = random(state, 0.5);
 render(state, cells);
 
-window.setInterval(() => {
-  render(state, cells);
-  state = tick(state, size);
-}, 1000/24)
+window.setInterval(() => state = render(tick(state, size), cells), 1000/24);
