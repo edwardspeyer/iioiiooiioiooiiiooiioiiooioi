@@ -59,7 +59,7 @@ function drop(team, state0, size) {
   let r = n => Math.floor(Math.random() * n)
   let origin_x = r(width);
   let origin_y = r(height);
-  let radius = width / 10;
+  let radius = width / 4;
 
   for (let y = origin_y - radius; y < origin_y + radius; y++) {
     for (let x = origin_x - radius; x < origin_x + radius; x++) {
@@ -93,7 +93,6 @@ function render(state) {
     }
 
     row.querySelectorAll('tspan').forEach(tspan => {
-      console.log(tspan);
       tspan.textContent = text;
     })
   });
@@ -138,20 +137,21 @@ function next(state0, size) {
   return state1;
 }
 
-let size = [28, 28];
+let size = [28, 15];
 
 let state = [];
-for (let i = 0; i < (28*28); i++) {
+for (let i = 0; i < (28*15); i++) {
   state.push(null);
 }
 
-state = random(state);
+//state = random(state);
+
 render(state);
 
 let time = 0;
 
 function tick() {
-  if (time % 12 == 0) {
+  if (time % 36 == 0) {
     let team;
     if (Math.random() <= 0.5) team = I;
     else team = O;
@@ -162,4 +162,4 @@ function tick() {
   time += 1;
 }
 
-window.setInterval(tick, 1);
+window.setInterval(tick, 1000/20);
