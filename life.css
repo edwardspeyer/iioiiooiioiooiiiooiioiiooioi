@@ -3,33 +3,3 @@ body {
   color: #ddd;
   margin: 0;
 }
-
-table {
-  width: 100vw;
-  height: 100vh;
-  border-collapse: collapse;
-  font-family: monospace;
-}
-
-td {
-  width: 3vw;
-  height: 3vh;
-  text-align: center;
-  font-size: 200%;
-  font-weight: bold;
-  overflow: hidden;
-}
-
-.i { background: #772; }
-.o { background: #277; }
-
-.i:before { content: 'i'; }
-.o:before { content: 'o'; }
-
-td div {
-  border: 1px solid #222;
-  border-radius: 1.5vw;
-  width: 90%;
-  height: 90%;
-  line-height: 140%;
-}
