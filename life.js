@@ -29,20 +29,13 @@ const I = 'i';
 const O = 'o';
 
 
-function build(grid, size) {
-  let cells = [];
-  let [width, height] = size;
-  for (let y = 0; y < height; y++) {
-    let row = document.createElement('tr');
-    grid.appendChild(row);
-    for (let x = 0; x < height; x++) {
-      let cell = document.createElement('td');
-      row.appendChild(cell);
-      cells.push(cell);
-    }
+const Rows = [];
+document.querySelectorAll('g').forEach(row => {
+  let label = row.getAttribute('inkscape:label');
+  if (label == 'text-row') {
+    Rows.push(row);
   }
-  return cells;
-}
+});
 
 
 function random(state0) {
@@ -84,13 +77,25 @@ function drop(team, state0, size) {
 }
 
 
-function render(state, cells) {
-  state.forEach((v, i) => {
-    if (v) {
-      cells[i].classList = v;
-    } else {
-      cells[i].className = '';
+function render(state) {
+  //let xpath = 'g[label="text-row"]';
+  //let rows = document.evaluate(xpath, document);
+  Rows.forEach((row, y) => {
+    let i = (y + 0) * 28;
+    let j = (y + 1) * 28;
+    let text = '';
+    for (;i<j;i++) {
+      if (state[i]) {
+        text += state[i];
+      } else {
+        text += ' ';
+      }
     }
+
+    row.querySelectorAll('tspan').forEach(tspan => {
+      console.log(tspan);
+      tspan.textContent = text;
+    })
   });
   return state;
 }
@@ -133,12 +138,15 @@ function next(state0, size) {
   return state1;
 }
 
-let size = [30, 30];
-let cells = build(grid, size);
-let state = cells.map(() => null);
-state = random(state);
+let size = [28, 28];
 
-render(state, cells);
+let state = [];
+for (let i = 0; i < (28*28); i++) {
+  state.push(null);
+}
+
+state = random(state);
+render(state);
 
 let time = 0;
 
@@ -150,9 +158,8 @@ function tick() {
     drop(team, state, size);
   }
   state = next(state, size);
-  render(state, cells);
+  render(state);
   time += 1;
 }
 
-
-window.setInterval(tick, 1000/12);
+window.setInterval(tick, 1);
