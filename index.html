@@ -2,29 +2,44 @@
 <html>
 <head>
 <meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
 body {
-  background: black;
+  background: #101010;
   font-family: monospace;
   margin: 0;
   overflow: hidden; /* TODO: make the table fit the screen */
 }
 
+#display {
+  position: relative;
+  width: calc(96vw - 40px);
+  height: calc(80vh - 40px);
+  margin-left: 2vw;
+  margin-top: 2vh;
+  padding: 20px;
+  background: black;
+  border-radius: 20px;
+  box-shadow: 0 0 10px black;
+}
+
 table {
   border-collapse: collapse;
-  width: 100vw;
-  height: 100vh;
+  background: black;
+  width: 100%;
+  height: 100%;
+  
+  border: 3px solid #f0fff7;
+  box-shadow: 0 0 10px #70ff87;
 }
 
 td {
-  font-size: 3.4em;
-  width: 5vw;
-  height: 5vh;
+  /* font-size: ...see javascript */
   padding: 0;
+  margin: 0;
   text-align: center;
   font-weight: bold;
-  overflow: hidden;
 }
   
 * {
@@ -35,13 +50,11 @@ td {
     0 0 20px #70ff87;
 }
 
-#display {
-  position: relative;
-}
-
 #scanlines {
-  width: 100%;
-  height: 100%;
+  width: 98%;
+  height: 98%;
+  margin-left: 1%;
+  margin-top: 1%;
   background: red;
   position: absolute;
   left: 0;
@@ -59,47 +72,32 @@ td {
 <body>
 
 <div id="display">
-<table>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-  <tr><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/></tr>
-</table>
 <div id="scanlines"/>
 </div>
+<table>
+</table>
 
 </body>
 
 <script>
-const Cells = Array.prototype.slice.call(document.querySelectorAll('td'));
-const Height = document.querySelectorAll('tr').length;
-const Width = Cells.length / Height;
+const CellSize = 30;
+const Table = document.querySelector('#display table');
+
+const Height = Math.floor(Table.offsetHeight / CellSize);
+const Width = Math.floor(Table.offsetWidth  / CellSize);
+
+const Cells = [];
+
+for (let y = 0; y < Height; y++) {
+  let tr = document.createElement('tr');
+  for (let x = 0; x < Width; x++) {
+    let td = document.createElement('td');
+    td.style.fontSize = Math.floor(0.80 * CellSize) + 'px';
+    tr.appendChild(td);
+    Cells.push(td);
+  }
+  Table.appendChild(tr);
+}
 
 const Offsets = [
   [-1, -1], [ 0, -1], [ 1, -1],
@@ -173,7 +171,7 @@ let state1 = null;
 let state2 = Cells.map(() => null);
 let timeout = 12;
 
-window.setInterval(() => {
+function animate() {
   state0 = state1
   state1 = state2;
   state2 = tick(state2);
@@ -190,8 +188,9 @@ window.setInterval(() => {
   if (state0) {
     render(state0);
   }
-}, 1000/24);
+}
 
+window.setInterval(animate, 1000/10);
 </script>
 
 </html>
