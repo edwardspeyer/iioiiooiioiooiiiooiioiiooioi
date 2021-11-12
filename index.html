@@ -114,7 +114,7 @@ for (let x = 0; x < Width; x++) {
   }
 }
 
-function pump(state) {
+function add_random_life(state) {
   return state.map(v => {
     let n = Math.random();
     if (v) {
@@ -172,7 +172,7 @@ function animate() {
       timeout += 1;
     } else {
       timeout = 0;
-      state2 = pump(state2);
+      state2 = add_random_life(state2);
     }
   }
 
