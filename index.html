@@ -184,9 +184,11 @@ function animate() {
   if (state0) {
     render(state0);
   }
+
+  window.requestAnimationFrame(animate);
 }
 
-window.setInterval(animate, 1000/10);
+window.requestAnimationFrame(animate);
 </script>
 
 </html>
