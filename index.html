@@ -90,12 +90,6 @@ for (let y = 0; y < Height; y++) {
   Table.appendChild(tr);
 }
 
-const Offsets = [
-  [-1, -1], [ 0, -1], [ 1, -1],
-  [-1,  0], /* hi! */ [ 1,  0],
-  [-1,  1], [ 0,  1], [ 1,  1],
-]
-
 const Neighbours = {};
 for (let x = 0; x < Width; x++) {
   for (let y = 0; y < Height; y++) {
