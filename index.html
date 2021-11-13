@@ -79,6 +79,10 @@ const Width = Math.floor(Table.offsetWidth  / CellSize);
 
 const Cells = [];
 
+const I = 'i';
+const O = 'o';
+const BLANK = '&nbsp;';
+
 for (let y = 0; y < Height; y++) {
   let tr = document.createElement('tr');
   for (let x = 0; x < Width; x++) {
@@ -114,66 +118,70 @@ function add_random_life(state) {
     if (v) {
       return v;
     } else if (n >= 0.75) {
-      return 'i';
+      return I;
     } else if (n <= 0.25) {
-      return 'o';
+      return O;
     }
   });
 }
 
 function render(state) {
   state.forEach((v, i) => {
-    Cells[i].innerHTML = v || '&nbsp;';
+    Cells[i].innerHTML = v || BLANK;
   });
 }
 
-function tick(state) {
-  return state.map((v, i) => {
-    let neighbours = Neighbours[i].map(j => state[j]);
-    let counts = neighbours.reduce((h, v) => {
-      h[v] = (h[v] || 0) + 1;
-      return h;
-    }, {});
+let count_o;
+let count_i;
+let w;
 
-    if (v) {
-      if (counts[v] >= 2 && counts[v] <= 3) {
-        return v;
+function tick(state_before, state_after) {
+  state_before.forEach((v, i) => {
+    count_o = 0;
+    count_i = 0;
+
+    Neighbours[i].forEach(j => {
+      if (state_before[j] == O) {
+        count_o++;
+      } else if (state_before[j] == I) {
+        count_i++;
+      }
+    });
+
+    w = null;
+    if (v == O) {
+      if (count_o >= 2 && count_o <= 3) {
+        w = O;
       } else {
-        return null;
+        w = null;
+      }
+    } else if (v == I) {
+      if (count_i >= 2 && count_i <= 3) {
+        w = I;
+      } else {
+        w = null;
       }
     } else {
-      if (counts['i'] == 3) {
-        return 'i';
-      } else if (counts['o'] == 3) {
-        return 'o';
+      if (count_i  == 3) {
+        w = I;
+      } else if (count_o == 3) {
+        w = O;
       }
     }
+
+    state_after[i] = w;
   });
 }
 
-let state0 = null;
-let state1 = null;
-let state2 = Cells.map(() => null);
-let timeout = 12;
+let stateA = Cells.map(() => null);
+let stateB = Cells.map(() => null);
+
+stateA = add_random_life(stateA);
 
 function animate() {
-  state0 = state1
-  state1 = state2;
-  state2 = tick(state2);
-
-  if (JSON.stringify(state0) == JSON.stringify(state2)) {
-    if (timeout < 12) {
-      timeout += 1;
-    } else {
-      timeout = 0;
-      state2 = add_random_life(state2);
-    }
-  }
-
-  if (state0) {
-    render(state0);
-  }
-
+  tick(stateA, stateB);
+  [stateA, stateB] = [stateB, stateA];
+  render(stateB);
   window.requestAnimationFrame(animate);
 }
 
