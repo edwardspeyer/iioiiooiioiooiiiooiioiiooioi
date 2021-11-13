@@ -127,7 +127,10 @@ function add_random_life(state) {
 
 function render(state) {
   state.forEach((v, i) => {
-    Cells[i].innerHTML = v || BLANK;
+    let r = v || BLANK;
+    if (Cells[i].innerHTML != r) {
+      Cells[i].innerHTML = r;
+    }
   });
 }
 
