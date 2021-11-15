@@ -111,6 +111,36 @@ for (let x = 0; x < Width; x++) {
   }
 }
 
+//
+//     ██  ██
+// ██  ██  ██  ██
+//   ████  ████
+//
+//   ████  ████
+// ██  ██  ██  ██
+//     ██  ██       gliders
+//
+const GLIDERS = [
+  [[0, 0, 1], [1, 0, 1], [0, 1, 1]],
+  [[1, 0 ,0], [1, 0, 1], [1, 1, 0]],
+  [[0, 1, 1], [1, 0, 1], [0, 0, 1]],
+  [[1, 1, 0], [1, 0, 1], [1, 0, 0]],
+]
+
+function add_random_glider(state) {
+  let team = (Math.random() > 0.5) ? I : O;
+  let ri = (a, b) => a + Math.floor((b - a) * Math.random());
+  let glider = GLIDERS[ri(0, 4)];
+  console.log(glider);
+  let ox = ri(2, Width - 3);
+  let oy = ri(2, Height - 3);
+  let p = (x, y) => ox + x + (oy + y) * Width;
+  glider.forEach((row, dy) => {
+    row.forEach((v, dx) => {
+      if (v) state[p(dx, dy)] = team;
+    });
+  });
+}
 
 function render(state) {
   state.forEach((v, i) => {
@@ -166,10 +196,13 @@ function tick(state_before, state_after) {
 let stateA = Cells.map(() => null);
 let stateB = Cells.map(() => null);
 
+let time = 0;
 function animate() {
+  if (time % 24 == 0) add_random_glider(stateA);
   tick(stateA, stateB);
   [stateA, stateB] = [stateB, stateA];
   render(stateB);
+  time += 1;
   window.requestAnimationFrame(animate);
 }
 
