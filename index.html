@@ -111,18 +111,6 @@ for (let x = 0; x < Width; x++) {
   }
 }
 
-function add_random_life(state) {
-  return state.map(v => {
-    let n = Math.random();
-    if (v) {
-      return v;
-    } else if (n >= 0.75) {
-      return I;
-    } else if (n <= 0.25) {
-      return O;
-    }
-  });
-}
 
 function render(state) {
   state.forEach((v, i) => {
@@ -177,8 +165,6 @@ function tick(state_before, state_after) {
 
 let stateA = Cells.map(() => null);
 let stateB = Cells.map(() => null);
-
-stateA = add_random_life(stateA);
 
 function animate() {
   tick(stateA, stateB);
