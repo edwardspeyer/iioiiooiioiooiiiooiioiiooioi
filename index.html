@@ -102,9 +102,8 @@ for (let x = 0; x < Width; x++) {
     for (let dx = -1; dx <= 1; dx++) {
       for (let dy = -1; dy <= 1; dy++) {
         if (dx == 0 && dy == 0) continue;
-        let nx = x + dx, ny = y + dy;
-        if (nx < 0 || nx >= Width) continue;
-        if (ny < 0 || ny >= Height) continue;
+        let nx = (x + dx + Width) % Width;
+        let ny = (y + dy + Height) % Height;
         let j = nx + ny * Width;
         Neighbours[i].push(j);
       }
